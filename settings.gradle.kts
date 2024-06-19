@@ -10,7 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven{url=java.net.URI("https://devrepo.kakao.com/nexus/content/groups/public/")}
+        maven{url=java.net.URI("https://jitpack.io")}
+        jcenter()
     }
+
 }
 
 rootProject.name = "FinalProject"

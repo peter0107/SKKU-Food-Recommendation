@@ -1,7 +1,14 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+var properties=Properties()
+properties.load(FileInputStream("local.properties"))
+
 
 android {
     namespace = "com.example.finalproject"
@@ -15,17 +22,31 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String","NATIVE_KEY",properties.getProperty("kakaoNativeKey"))
+        buildConfigField("String","KEY_HASH",properties.getProperty("keyhash"))
+
     }
 
     buildTypes {
+        debug{
+            isMinifyEnabled=false
+            manifestPlaceholders["NATIVE_KEY"]=properties["kakaoNativeKey"] as String
+        }
+
         release {
             isMinifyEnabled = false
+            manifestPlaceholders["NATIVE_KEY"]=properties["kakaoNativeKey"] as String
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
+    buildFeatures{
+        buildConfig=true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,4 +68,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.maps.android:android-maps-utils:3.8.0")
+    //kakao login
+    implementation("com.kakao.sdk:v2-user:2.20.1")
+
+    implementation("com.github.kofigyan:StateProgressBar:69b4192777")
 }
