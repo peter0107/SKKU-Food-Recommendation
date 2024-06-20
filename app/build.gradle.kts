@@ -24,6 +24,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String","NATIVE_KEY",properties.getProperty("kakaoNativeKey"))
         buildConfigField("String","KEY_HASH",properties.getProperty("keyhash"))
+        buildConfigField("String","GPT_API_KEY",properties.getProperty("openaiApiKey"))
 
     }
 
@@ -70,6 +71,12 @@ dependencies {
     implementation("com.google.maps.android:android-maps-utils:3.8.0")
     //kakao login
     implementation("com.kakao.sdk:v2-user:2.20.1")
-
     implementation("com.github.kofigyan:StateProgressBar:69b4192777")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("com.aallam.openai:openai-client:3.8.1")
 }
