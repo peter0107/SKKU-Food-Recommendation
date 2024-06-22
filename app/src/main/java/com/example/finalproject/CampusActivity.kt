@@ -24,15 +24,17 @@ class CampusActivity : AppCompatActivity() {
         //율전 버튼 눌렀을 때
         btn_suwon.setOnClickListener{
             newIntent=Intent(this,foodActivity::class.java)
-            newIntent.putExtra(PLACE,"suwon")
+            newIntent.putExtra(PLACE,"율전캠퍼스")
             startActivity(newIntent)
+
         }
 
         //명륜 버튼 눌렀을 때
         btn_seoul.setOnClickListener{
             newIntent=Intent(this,foodActivity::class.java)
-            newIntent.putExtra(PLACE,"seoul")
+            newIntent.putExtra(PLACE,"명륜캠퍼스")
             startActivity(newIntent)
+
         }
     }
 }

@@ -26,10 +26,20 @@
         <activity
             android:name=".CampusActivity"
             android:exported="false" />
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.kakao.sdk.Appkey"
             android:value="${NATIVE_KEY}" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_MAPS_API_KEY}"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".MainActivity"

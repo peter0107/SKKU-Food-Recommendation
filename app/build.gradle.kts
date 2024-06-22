@@ -4,6 +4,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 var properties=Properties()
@@ -26,17 +27,20 @@ android {
         buildConfigField("String","KEY_HASH",properties.getProperty("keyhash"))
         buildConfigField("String","GPT_API_KEY",properties.getProperty("openaiApiKey"))
 
+
     }
 
     buildTypes {
         debug{
             isMinifyEnabled=false
             manifestPlaceholders["NATIVE_KEY"]=properties["kakaoNativeKey"] as String
+            //manifestPlaceholders["MAP_KEY"]=properties["googleMapKey"] as String
         }
 
         release {
             isMinifyEnabled = false
             manifestPlaceholders["NATIVE_KEY"]=properties["kakaoNativeKey"] as String
+            //manifestPlaceholders["MAP_KEY"]=properties["googleMapKey"] as String
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -72,11 +76,9 @@ dependencies {
     //kakao login
     implementation("com.kakao.sdk:v2-user:2.20.1")
     implementation("com.github.kofigyan:StateProgressBar:69b4192777")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("com.github.ybq:Android-SpinKit:1.4.0")
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation("com.aallam.openai:openai-client:3.8.1")
+
 }
