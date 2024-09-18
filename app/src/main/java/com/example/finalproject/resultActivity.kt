@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import okhttp3.OkHttpClient
 
 
@@ -23,10 +24,13 @@ class resultActivity : AppCompatActivity() {
 
         //Get Information
         val GPTResponse = intent.getStringExtra(foodActivity.RESPOND)
+        val currentTime=intent.getStringExtra(foodActivity.TIME)
         val listviewRestaurant = findViewById<ListView>(R.id.listviewRecommend)
         val HomeButton=findViewById<Button>(R.id.button_home)
         val TryButton=findViewById<Button>(R.id.button_try)
+        val textTime=findViewById<TextView>(R.id.textViewTime)
 
+        textTime.setText(currentTime)
         val restaurantArray = parseRestaurantResponse(GPTResponse?:"")
         val restaurantAdapter=RestaurantAdapter(this,restaurantArray)
         listviewRestaurant.adapter=restaurantAdapter

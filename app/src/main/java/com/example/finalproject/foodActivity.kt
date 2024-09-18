@@ -23,14 +23,17 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import okio.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class foodActivity : AppCompatActivity() {
 
     private val client = OkHttpClient()
     private lateinit var progressDialog: ProgressDialog
     companion object{
-        /*const val PLACE="example_place"
-        const val FOOD="example_food"*/
+        //const val PLACE="example_place"
+        const val TIME="example_time"
+        const val WEATHER="example_weather"
         const val RESPOND="example_string"
     }
     private lateinit var newIntent: Intent
@@ -84,6 +87,12 @@ class foodActivity : AppCompatActivity() {
 
     }
 
+    private fun getCurrentTime(): String{
+        val currentDateTime=LocalDateTime.now()
+        val formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        return currentDateTime.format(formatter)
+    }
+
     private fun getResponse(question: String) {
         val url = "https://api.openai.com/v1/chat/completions"
         val apikey = BuildConfig.GPT_API_KEY
@@ -96,7 +105,7 @@ class foodActivity : AppCompatActivity() {
             "messages":[
                 {
                     "role":"system",
-                    "content": "You are Restaurant recommendation assistant. You should provide the Restaurant name, address, main menu, latitude, longitude of the 5 restaurants corresponding to the food entered by the user."
+                    "content": "You are Restaurant recommendation assistant. When recommending restaurants, consider the weather, time of day, and the user's preferred food. You should provide the Restaurant name, address, main menu, latitude, longitude of the 5 restaurants corresponding to the food entered by the user."
                 },
                 {
                     "role": "user",
@@ -152,7 +161,9 @@ class foodActivity : AppCompatActivity() {
                             }
                             else{
                                 val intent=Intent(applicationContext,resultActivity::class.java)
+                                val currentTime=getCurrentTime()
                                 intent.putExtra(RESPOND,text)
+                                intent.putExtra(TIME,currentTime)
                                 startActivity(intent)
                                 progressDialog.dismiss()
                             }
